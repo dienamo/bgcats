@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
+var bodyParser = require("body-parser");
+
 dotenv.config();
 
 const app = express();
@@ -15,6 +17,9 @@ app.use(
     origin: ["http://localhost:3000"], // <== this will be the URL of our React app (it will be running on port 3000)
   })
 );
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use("/", catsRoute);
 
 mongoose
