@@ -5,8 +5,8 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 
-const CatCard = ({ imgUrl }) => (
-  <Card sx={{ maxWidth: 345 }}>
+const CatCard = ({ imgUrl, onClick }) => (
+  <Card sx={{ maxWidth: 345 }} onClick={onClick}>
     <CardActionArea>
       <CardMedia
         component="img"
