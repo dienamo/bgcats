@@ -4,18 +4,8 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 dotenv.config();
 
+const path = require("path");
 const app = express();
-
-//import routes
-const catsRoute = require("./routes/cats-routes");
-
-app.use(
-  cors({
-    credentials: true,
-    origin: ["http://localhost:3000"], // <== this will be the URL of our React app (it will be running on port 3000)
-  })
-);
-app.use("/", catsRoute);
 
 mongoose
   .connect(process.env.DB_CONNECTION, {
@@ -28,5 +18,21 @@ mongoose
   )
   // eslint-disable-next-line no-console
   .catch((err) => console.error("Error connecting to mongo", err));
+
+app.use(
+  cors({
+    credentials: true,
+    origin: ["http://localhost:3000"], // <== this will be the URL of our React app (it will be running on port 3000)
+  })
+);
+
+app.use(express.static(path.resolve(__dirname, "./client/build")));
+
+app.get("*", function (request, response) {
+  response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
+});
+
+const catsRoute = require("./routes/cats-routes");
+app.use("/", catsRoute);
 
 app.listen(5000);
