@@ -25,6 +25,7 @@ const Vote = () => {
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "space-around",
+          alignItems: "center",
         }}
       >
         {cats.map((cat, i) => (
